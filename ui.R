@@ -35,7 +35,8 @@ sidebar <- dashboardSidebar(
     menuItem("Incident Detail", tabName = "incidentsdetail", icon = icon("fa-solid fa-table-list")),
     menuItem("FY Statistics", tabName = "fystats", icon = icon("fa-solid fa-calendar-plus")),
     menuItem("Forecasting", tabName = "forecast", icon = icon("fa-solid fa-arrow-trend-up")),
-    menuItem("County Responses", tabName = "countyresponse", icon = icon("fa-solid fa-road"))
+    menuItem("County Responses", tabName = "countyresponse", icon = icon("fa-solid fa-road")),
+    menuItem("Units/Apparatus", tabName = "units", icon = icon("fa-solid fa-fire"))
   )
 )
 
@@ -285,7 +286,16 @@ body <- dashboardBody(
           plotOutput("other_decomp_plot", height = "400px")
         )
       )
-    ),    
+    ),
+    tabItem(
+      tabName = "units",
+      h4("Santa Clara - Ivins Fire & Rescue Units/Apparatus"),
+      fluidRow(
+        column(12,
+               dataTableOutput('units_table')
+        )
+      ),
+    ),
     tabItem(
       tabName = "countyresponse",
       h4("County Response Statistics"),

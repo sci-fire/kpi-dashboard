@@ -41,6 +41,8 @@ response_times$year <- year(response_times$date)
 response_times$month <- month(response_times$date)
 response_times$city[is.na(response_times$city)] <- "WashCo"
 
+load("/analytics/publicsafety/scif/prod/data//units.Rdata")
+
 response_times_tmp <- sqldf(capture.output(cat("select * from response_times where year != ",as.character(year(now()))," and month != ",as.character(month(now())),sep='')))
 
 incidents_fire <- sqldf("select count(number) as fire, year, month from response_times_tmp where type = 'Fire' group by year, month order by year, month")
@@ -701,6 +703,7 @@ shinyServer(function(input, output) {
          col="orange")
   })
   
+  output$units_table <- renderDataTable(units)
   output$county_incident_table <- renderDataTable(county_incident_table)
   output$incident_table <- renderDataTable(incident_table)
   output$fy_incidents_tbl <- renderDataTable(fy_incidents_tbl)
